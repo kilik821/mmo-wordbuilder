@@ -1,14 +1,14 @@
 module.exports = (socket, chat) ->
   {
-    message: (room, message) ->
+    "send message": (data) ->
       socket.get 'user', (err, user) ->
         unless err?
-          chat.in(room).emit 'message', user.name, message
+          chat.in(data.r).emit 'message', user.name, data.m
         else socket.emit 'error', err
     
-    join: (room) ->
-      socket.join room
+    join: (data) ->
+      socket.join data.r
     
-    leave: (room) ->
-      socket.leave room
+    leave: (data) ->
+      socket.leave data.r
   }
