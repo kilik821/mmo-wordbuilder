@@ -1,0 +1,31 @@
+{
+    "name": "MMORPG-World-Building",
+    "version": "0.0.1",
+    "subdomain": "mmorpg-worldbuilding",
+    "domains": [],
+    "author": "Shelby Doolittle <shelbyhosts@gmail.com>",
+    "description": "An mmorpg with world building and game restarts on faction victory.",
+    "dependencies": {
+        "express": "3.x",
+        "coffee-script": "1.4.x",
+        "jade": "0.30.x",
+        "connect-assets": "2.4.0",
+        "stylus": "0.32.x",
+        "passport": "0.1.16",
+        "which": "1.0.5",
+        "mongoose": "3.6.x",
+        "passport-local": "0.1.6"
+    },
+    "scripts": {
+        "install": "node node_modules/coffee-script/cake build",
+        "start": "node server.js"
+    },
+    "devDependencies": {
+        "coffee-script": "*",
+        "ejs": "*"
+    },
+    "engines": {
+        "node": "0.8.x",
+        "npm": "1.2.x"
+    }
+}
