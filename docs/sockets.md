@@ -10,37 +10,34 @@ to server, server to client, and client to client respectively.
 
 Messages in the "/chat" namespace
 
-### send message
-*cts*
+### send message (*cts*)
 
 Emits a message to all members of a chat room.
 
-{
+    {
 
-"r" : [String] Room to emit message to
+    "r" : [String] Room to emit message to
 
-"m" : [String] Message to send
+    "m" : [String] Message to send
 
-}
+    }
 
-### join
-*cts*
+### join (*cts*)
 
 Allows a client to join a chat room.
 
-{
+    {
 
-"r" : [String] Room to join
+    "r" : [String] Room to join
 
-}
+    }
 
-### leave
-*cts*
+### leave (*cts*)
 
 Removes a client from a room.  Has no effect if the client is not in the room.
 
-{
+    {
 
-"r" : [String] Room to leave
+    "r" : [String] Room to leave
 
-}
+    }
