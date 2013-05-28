@@ -22,6 +22,7 @@ loginSetup = (socket) ->
         socket.emit 'logged in'
     else
       socket.emit 'failed login', err
+
 login = (cb) ->
   # TODO: Add login functionality
   (user, pass) ->
