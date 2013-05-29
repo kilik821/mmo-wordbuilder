@@ -1,5 +1,6 @@
 .app/
 .idea/
+node_modules/
 
 lib-cov
 *.seed

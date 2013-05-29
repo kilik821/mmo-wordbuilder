@@ -10,4 +10,5 @@ db =
   user: ''
   pass: ''
 
-exports.db = "mongodb://#{db.user}:#{db.pass}@#{db.host}:#{db.port}/#{db.name}"
+dbString = "mongodb://#{if db.user and db.pass then db.user + ':' + db.pass + '@' else ''}#{db.host}#{if db.port then ':' + db.port else ''}/#{db.name ? ''}"
+exports.db = dbString

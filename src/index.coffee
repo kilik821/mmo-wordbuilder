@@ -1,13 +1,15 @@
 express = require "express"
-io = require "socket.io"
 assets = require "connect-assets"
+mongoose = require "mongoose"
+http = require "http"
 
 # Create application
-exports.app = app = express.createServer()
-exports.io = io
+app = express()
+server = http.createServer app
+io = require("socket.io").listen server
 
 # Define port
-exports.port = port = process.env.PORT or process.env.VMC_APP_PORT or 3000
+server.port = port = process.env.PORT or process.env.VMC_APP_PORT or 3000
 
 config = require "./config"
 app.configure 'production', 'development', 'testing', ->
@@ -37,3 +39,5 @@ routes(app)
 # Initialize socket functions
 sockets = require './sockets'
 sockets(io)
+
+module.exports = server

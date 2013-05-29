@@ -13,5 +13,5 @@ module.exports = (io) ->
 
   for namespace in namespaces
     ns = io.of('/' + namespace).on 'connection', (socket) ->
-      for name, handler of require('./' + namespace)(socket, chat)
+      for name, handler of require('./' + namespace)(socket, ns)
         socket.on name, handler
