@@ -19,6 +19,16 @@ Emits a message to all members of a chat room.
 
     m : [String] Message to send
 
+
+### send message (stc)
+---
+
+Sends a message to a client in a room.
+
+    u : Username of user who sent the message
+    
+    m : Message sent
+    
 ### join (cts)
 ---
 
