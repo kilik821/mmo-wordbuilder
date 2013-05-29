@@ -5,5 +5,5 @@ module.exports = (app) ->
   app.get '/play', (req, res, next) ->
     res.render 'play'
   
-  app.get '/*', (req, res, next) ->
+  app.get '/', (req, res, next) ->
     res.render 'index'
