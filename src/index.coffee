@@ -17,24 +17,23 @@ app.configure 'production', 'development', 'testing', ->
   
 mongoose.connect config.settings.db
 
-#### View initialization
-# Connect assets
-app.use assets()
-# Set the public folder as static assets
-app.use express.static(process.cwd() + '/public')
-
 # Set view engine
 app.set 'view engine', 'jade'
 
 # Parser middleware
-app.use express.bodyParser()
-app.use express.methodOverride()
-app.use express.cookieParser()
+#app.use express.bodyParser()
+#app.use express.methodOverride()
+#app.use express.cookieParser()
 
 #### Finalization
 # Initialize routes
-routes = require './routes'
-routes(app)
+#routes = require './routes'
+#routes(app)
+
+#### View initialization
+# Set the public folder as static assets
+console.log 'Trying static'
+app.use express.static(process.cwd() + '/public')
 
 # Initialize socket functions
 sockets = require './sockets'
