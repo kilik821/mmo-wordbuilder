@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Game</name>
+    <events>
+        <include>Click to Add Solid</include>
+        <include>Player Movement</include>
+        <variable comment="Pixels for vertical tiles" constant="0" name="TileSizeY" sid="2837270004644423" static="0" type="number">48</variable>
+        <variable comment="Pixels for horizontal tiles" constant="0" name="TileSizeX" sid="8425974747998167" static="0" type="number">48</variable>
+        <variable comment="Number of animations per player movement" constant="1" name="ANIMATIONSPERMOVE" sid="2946124014460763" static="0" type="number">1</variable>
+        <variable comment="Number of rows" constant="0" name="Rows" sid="7164784908913802" static="0" type="number">0</variable>
+        <variable comment="Number of columns" constant="0" name="Cols" sid="2349879993479772" static="0" type="number">0</variable>
+        <event-block sid="1633543823184788">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="6240131924597487" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="172070229097439" type="System">
+                    <param id="0" name="Variable">Cols</param>
+                    <param id="1" name="Value">int(LayoutWidth / TileSizeX)</param>
+                </action>
+                <action id="-9" name="Set value" sid="3916923653665738" type="System">
+                    <param id="0" name="Variable">Rows</param>
+                    <param id="1" name="Value">int(LayoutHeight / TileSizeY)</param>
+                </action>
+                <action id="4" name="Set animation" sid="4124332904394638" type="Player">
+                    <param id="0" name="Animation">&quot;Idle90&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="-7" name="Set size" sid="7796701364160627" type="Player">
+                    <param id="0" name="Width">TileSizeX</param>
+                    <param id="1" name="Height">TileSizeX / Player.Width * Player.Height</param>
+                </action>
+                <action behavior="Bullet" id="0" name="Set speed" sid="3044076366611317" type="Player">
+                    <param id="0" name="Speed">0</param>
+                </action>
+                <action id="-7" name="Set size" sid="5856875866722609" type="PlayerCollision">
+                    <param id="0" name="Width">TileSizeX - 2</param>
+                    <param id="1" name="Height">TileSizeY - 2</param>
+                </action>
+                <action id="-3" name="Create object" sid="1999990647625999" type="System">
+                    <param id="0" name="Object to create">World</param>
+                    <param id="1" name="Layer">0</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action id="1" name="Set size" sid="835068736161444" type="World">
+                    <param id="0" name="Width">Cols + 1</param>
+                    <param id="1" name="Height">Rows + 1</param>
+                    <param id="2" name="Depth">1</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="6073585175378789">
+                    <conditions>
+                        <condition id="3" name="For each element" sid="636358802135648" type="World">
+                            <param id="0" name="Axes">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="8154376202912595" type="System">
+                            <param id="0" name="Object to create">grass1</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">World.CurX * TileSizeX</param>
+                            <param id="3" name="Y">World.CurY * TileSizeY</param>
+                        </action>
+                        <action id="-3" name="Create object" sid="4211988872687218" type="System">
+                            <param id="0" name="Object to create">Objects</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">0</param>
+                            <param id="3" name="Y">0</param>
+                        </action>
+                        <action id="5" name="Push" sid="2889870999472065" type="Objects">
+                            <param id="0" name="Where">0</param>
+                            <param id="1" name="Value">grass1.UID</param>
+                            <param id="2" name="Axis">0</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block any="1" sid="52837135496777">
+                            <conditions>
+                                <condition id="-8" name="Compare two values" sid="668651634054828" type="System">
+                                    <param id="0" name="First value">random(100)</param>
+                                    <param id="1" name="Comparison">2</param>
+                                    <param id="2" name="Second value">15</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="4891914884704975" type="System">
+                                    <param id="0" name="First value">World.CurX</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="597290663173837" type="System">
+                                    <param id="0" name="First value">World.CurX</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">Cols</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="9892623462419187" type="System">
+                                    <param id="0" name="First value">World.CurY</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="256258613773451" type="System">
+                                    <param id="0" name="First value">World.CurY</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">Rows</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="8994959916346465" type="System">
+                                    <param id="0" name="Object to create">Solid</param>
+                                    <param id="1" name="Layer">&quot;Objects&quot;</param>
+                                    <param id="2" name="X">World.CurX * TileSizeX</param>
+                                    <param id="3" name="Y">World.CurY * TileSizeY</param>
+                                </action>
+                                <action id="5" name="Push" sid="2332430280261382" type="Objects">
+                                    <param id="0" name="Where">0</param>
+                                    <param id="1" name="Value">Solid.UID</param>
+                                    <param id="2" name="Axis">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="4345906407245701">
+                            <conditions />
+                            <actions>
+                                <action id="3" name="Set at XY" sid="4816985837661142" type="World">
+                                    <param id="0" name="X">Self.CurX</param>
+                                    <param id="1" name="Y">Self.CurY</param>
+                                    <param id="2" name="Value">Objects.UID</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="6203046527331354">
+                    <conditions />
+                    <actions>
+                        <action id="14" name="Log" sid="793890650657224" type="Browser">
+                            <param id="0" name="Type">0</param>
+                            <param id="1" name="Message">World.AsJSON</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="7285777734448203">
+            <conditions>
+                <condition id="5" name="On event received" sid="6867854295449286" type="Socket">
+                    <param id="0" name="Socket Event">&quot;world info&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="11" name="Load" sid="185951872515027" type="World">
+                    <param id="0" name="JSON">Socket.LastData</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

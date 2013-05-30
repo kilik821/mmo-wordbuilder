@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Player Movement</name>
+    <events>
+        <event-block sid="722088964503615">
+            <conditions>
+                <condition behavior="Bullet" id="0" name="Compare speed" sid="2823882418496689" type="Player">
+                    <param id="0" name="Comparison">0</param>
+                    <param id="1" name="Speed">0</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="5460926031197318">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="4414664508457515" type="Keyboard">
+                            <param id="0" name="Key">38 (Up arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Set value" sid="756296813593456" type="Player">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">270</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="6567439955914058">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="3269233964203751" type="Keyboard">
+                            <param id="0" name="Key">40 (Down arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Set value" sid="455190193626707" type="Player">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">90</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="7672408956824431">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="4184692409275285" type="Keyboard">
+                            <param id="0" name="Key">39 (Right arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Set value" sid="2903781569719122" type="Player">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="7000258134719916">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="7022549703150873" type="Keyboard">
+                            <param id="0" name="Key">37 (Left arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Set value" sid="1024240163897163" type="Player">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">180</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="2466664780032641">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="7133243393590219" type="Keyboard">
+                            <param id="0" name="Key">38 (Up arrow)</param>
+                        </condition>
+                        <condition id="2" name="Key is down" sid="4461046398995932" type="Keyboard">
+                            <param id="0" name="Key">40 (Down arrow)</param>
+                        </condition>
+                        <condition id="2" name="Key is down" sid="6636712994282676" type="Keyboard">
+                            <param id="0" name="Key">39 (Right arrow)</param>
+                        </condition>
+                        <condition id="2" name="Key is down" sid="270569320557174" type="Keyboard">
+                            <param id="0" name="Key">37 (Left arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Set value" sid="4827809125786212" type="Player">
+                            <param id="0" name="Instance variable">TargetX</param>
+                            <param id="1" name="Value">Self.X + cos(Self.Direction) * TileSizeX</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="2501254852415374" type="Player">
+                            <param id="0" name="Instance variable">TargetY</param>
+                            <param id="1" name="Value">Self.Y + sin(Self.Direction) * TileSizeY</param>
+                        </action>
+                        <action id="-3" name="Set position" sid="7438188011415943" type="PlayerCollision">
+                            <param id="0" name="X">Player.TargetX</param>
+                            <param id="1" name="Y">Player.TargetY</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="2381825148379197" type="Player">
+                            <param id="0" name="Animation">&quot;Walk&quot; &amp; str(Self.Direction)</param>
+                            <param id="1" name="From">0</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="3442224233741652">
+                            <conditions>
+                                <condition id="1" inverted="1" name="Is overlapping another object" sid="5962431344098373" type="PlayerCollision">
+                                    <param id="0" name="Object">Solid</param>
+                                </condition>
+                                <condition id="-4" inverted="1" name="Is outside layout" sid="5990025125457285" type="PlayerCollision" />
+                            </conditions>
+                            <actions>
+                                <action behavior="Bullet" id="0" name="Set speed" sid="7959814641831906" type="Player">
+                                    <param id="0" name="Speed">(TileSizeX * abs(cos(Self.Direction)) + TileSizeY * abs(sin(Self.Direction))) * Self.MovementSpeed</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="2579029497453447" type="Player">
+                                    <param id="0" name="Angle">Self.Direction</param>
+                                </action>
+                                <action id="4" name="Set animation" sid="8255424813618206" type="Player">
+                                    <param id="0" name="Animation">&quot;Walk&quot; &amp; str(Self.Direction)</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="6" name="Set speed" sid="2830757608742637" type="Player">
+                                    <param id="0" name="Speed">Self.AnimationFrameCount * ANIMATIONSPERMOVE * Self.MovementSpeed</param>
+                                </action>
+                                <action id="-16" name="Wait" sid="4358252387467692" type="System">
+                                    <param id="0" name="Seconds">1.0 / Player.MovementSpeed</param>
+                                </action>
+                                <action behavior="Bullet" id="0" name="Set speed" sid="4313973267289036" type="Player">
+                                    <param id="0" name="Speed">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="6739573305212888" type="Player">
+                                    <param id="0" name="X">Self.TargetX</param>
+                                    <param id="1" name="Y">Self.TargetY</param>
+                                </action>
+                                <action id="4" name="Set animation" sid="6513379542323067" type="Player">
+                                    <param id="0" name="Animation">&quot;Idle&quot; &amp; str(Self.Direction)</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1714254275412591">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="4131118132520171" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Set position" sid="2339140464169741" type="PlayerCollision">
+                                    <param id="0" name="X">Player.X</param>
+                                    <param id="1" name="Y">Player.Y</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="2503914200869013">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="8285541329877247" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="9586095884134064" type="Player">
+                            <param id="0" name="Animation">&quot;Idle&quot; &amp; str(Self.Direction)</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+    </events>
+</c2eventsheet>

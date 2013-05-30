@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Click to Add Solid</name>
+    <events>
+        <event-block sid="497202338989302">
+            <conditions>
+                <condition behavior="DragDrop" id="1" name="On drag start" sid="1875152008204532" type="Solid" />
+            </conditions>
+            <actions>
+                <action id="-16" name="Set opacity" sid="137054430268278" type="Solid">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="11" name="Set collisions enabled" sid="5948595230054089" type="Solid">
+                    <param id="0" name="Collisions">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="1744422452553158">
+            <conditions>
+                <condition behavior="DragDrop" id="0" name="Is dragging" sid="3611541258270243" type="Solid" />
+            </conditions>
+            <actions>
+                <action id="-3" name="Set position" sid="2979289881184214" type="Solid">
+                    <param id="0" name="X">int((Touch.X + TileSizeX / 2)/ TileSizeX) * TileSizeX</param>
+                    <param id="1" name="Y">int((Touch.Y + TileSizeY / 2)/ TileSizeY) * TileSizeY</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7303518976183616">
+            <conditions>
+                <condition behavior="DragDrop" id="2" name="On drop" sid="2980728298921282" type="Solid" />
+            </conditions>
+            <actions>
+                <action id="-16" name="Set opacity" sid="1636278153358946" type="Solid">
+                    <param id="0" name="Opacity">100</param>
+                </action>
+                <action id="11" name="Set collisions enabled" sid="1474652048741981" type="Solid">
+                    <param id="0" name="Collisions">1</param>
+                </action>
+                <action id="-3" name="Set position" sid="8896120118398269" type="Solid">
+                    <param id="0" name="X">int((Self.X + TileSizeX / 2)/ TileSizeX) * TileSizeX</param>
+                    <param id="1" name="Y">int((Self.Y + TileSizeY / 2)/ TileSizeY) * TileSizeY</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7301768240696105">
+            <conditions>
+                <condition id="0" name="On any touch start" sid="1607617434689751" type="Touch" />
+                <condition id="4" inverted="1" name="Is touching object" sid="7799965577274027" type="Touch">
+                    <param id="0" name="Object">Solid</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-3" name="Create object" sid="136548758412589" type="System">
+                    <param id="0" name="Object to create">CreatingObject</param>
+                    <param id="1" name="Layer">&quot;New Objects&quot;</param>
+                    <param id="2" name="X">(Touch.X)</param>
+                    <param id="3" name="Y">(Touch.Y)</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="3065853694512874">
+            <conditions>
+                <condition behavior="DragDrop" id="0" name="Is dragging" sid="3452085409045569" type="CreatingObject" />
+            </conditions>
+            <actions>
+                <action id="-3" name="Set position" sid="5624783390694618" type="CreatingObject">
+                    <param id="0" name="X">int((Touch.X + TileSizeX / 2) / TileSizeX) * TileSizeX</param>
+                    <param id="1" name="Y">int((Touch.Y + TileSizeY / 2) / TileSizeY) * TileSizeY</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="9980504411024958">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="1385980426118395" type="CreatingObject">
+                            <param id="0" name="Object">Solid</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="5" name="Set frame" sid="6608467849285391" type="CreatingObject">
+                            <param id="0" name="Frame number">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="6947095765385668">
+                    <conditions>
+                        <condition id="1" inverted="1" name="Is overlapping another object" sid="4237896940490347" type="CreatingObject">
+                            <param id="0" name="Object">Solid</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="5" name="Set frame" sid="2234312738692299" type="CreatingObject">
+                            <param id="0" name="Frame number">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="3007428824829619">
+            <conditions>
+                <condition behavior="DragDrop" id="2" name="On drop" sid="5374245763544058" type="CreatingObject" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="7182515422458503" type="CreatingObject" />
+            </actions>
+            <sub-events>
+                <event-block sid="5764756524659891">
+                    <conditions>
+                        <condition id="1" inverted="1" name="Is overlapping another object" sid="8451031965058976" type="CreatingObject">
+                            <param id="0" name="Object">Solid</param>
+                        </condition>
+                        <condition id="1" inverted="1" name="Is overlapping another object" sid="1268611314752834" type="CreatingObject">
+                            <param id="0" name="Object">PlayerCollision</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="8029134314974995" type="System">
+                            <param id="0" name="Object to create">Solid</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">CreatingObject.X</param>
+                            <param id="3" name="Y">CreatingObject.Y</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+    </events>
+</c2eventsheet>
