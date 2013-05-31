@@ -6,7 +6,6 @@ Messages are also given a *cts*, *stc*, *ctc* tag to mark them as client
 to server, server to client, and client to client respectively.
 
 ## Chat
-***
 
 ### send message (cts)
 ---
