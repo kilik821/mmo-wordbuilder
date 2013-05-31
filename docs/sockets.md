@@ -1,14 +1,12 @@
 # Documentation for socket interface
 
 This is the documentation for the socket messages used for MMOWB.
-Messages are categorized into namespaces corresponding to 
-<code>io.of(NAMESPACE)</code>.
+All messages belong to a single namespace, '/'.
 Messages are also given a *cts*, *stc*, *ctc* tag to mark them as client
 to server, server to client, and client to client respectively.
 
 ## Chat
-
-Messages in the "/chat" namespace
+***
 
 ### send message (cts)
 ---
@@ -25,9 +23,9 @@ Emits a message to all members of a chat room.
 
 Sends a message to a client in a room.
 
-    u : Username of user who sent the message
+    u : [String] Username of user who sent the message
     
-    m : Message sent
+    m : [String] Message sent
     
 ### join (cts)
 ---
