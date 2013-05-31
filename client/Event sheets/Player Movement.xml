@@ -133,6 +133,10 @@
                                     <param id="0" name="Animation">&quot;Idle&quot; &amp; str(Self.Direction)</param>
                                     <param id="1" name="From">1</param>
                                 </action>
+                                <action id="5" name="EmitJSONString" sid="3301957004021921" type="Socket">
+                                    <param id="0" name="Event">&quot;player_movement&quot;</param>
+                                    <param id="1" name="JSON String">&quot;{&quot;&quot;x&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetX / TileSizeX &amp;&quot;&quot;&quot;,&quot;&quot;y&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetY / TileSizey &amp;&quot;&quot;&quot;,&quot;&quot;t&quot;&quot;:&quot;&quot;&quot; &amp; time &amp; &quot;&quot;&quot;}&quot;</param>
+                                </action>
                             </actions>
                         </event-block>
                         <event-block sid="1714254275412591">
@@ -160,6 +164,14 @@
                     </actions>
                 </event-block>
             </sub-events>
+        </event-block>
+        <event-block sid="3840662911507777">
+            <conditions>
+                <condition id="5" name="On event received" sid="6095618485816969" type="Socket">
+                    <param id="0" name="Socket Event">&quot;player_movement&quot;</param>
+                </condition>
+            </conditions>
+            <actions />
         </event-block>
     </events>
 </c2eventsheet>

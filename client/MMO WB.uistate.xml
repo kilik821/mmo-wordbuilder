@@ -11,8 +11,8 @@ you probably do not want to add any .uistate.xml files to the repository.-->
     </configurations>
     <open-tabs>
         <layout>Main Game</layout>
-        <event-sheet active="1">Game</event-sheet>
-        <event-sheet>Player Movement</event-sheet>
+        <event-sheet>Game</event-sheet>
+        <event-sheet active="1">Player Movement</event-sheet>
         <event-sheet>Click to Add Solid</event-sheet>
         <event-sheet>Shift World</event-sheet>
     </open-tabs>

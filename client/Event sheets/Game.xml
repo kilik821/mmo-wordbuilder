@@ -115,16 +115,52 @@
         <event-block sid="3880810043218675">
             <conditions>
                 <condition id="5" name="On event received" sid="2081752832497041" type="Socket">
-                    <param id="0" name="Socket Event">&quot;login nawt&quot;</param>
+                    <param id="0" name="Socket Event">&quot;login&quot;</param>
                 </condition>
             </conditions>
             <actions>
                 <action id="14" name="Log" sid="8448072263366055" type="Browser">
                     <param id="0" name="Type">0</param>
-                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastData</param>
+                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
                 </action>
-                <action disabled="1" id="1" name="Disconnect" sid="6094264109799167" type="Socket" />
+                <action id="4" name="Emit" sid="7218004296639697" type="Socket">
+                    <param id="0" name="Event">&quot;login&quot;</param>
+                    <param id="1" name="Data">&quot;username:password&quot;</param>
+                </action>
             </actions>
+        </event-block>
+        <event-block sid="4426139598577875">
+            <conditions>
+                <condition id="5" name="On event received" sid="4499560804864917" type="Socket">
+                    <param id="0" name="Socket Event">&quot;successful login&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="14" name="Log" sid="6099502825156711" type="Browser">
+                    <param id="0" name="Type">0</param>
+                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
+                </action>
+                <action id="1" name="Disconnect" sid="6761779657457876" type="Socket" />
+            </actions>
+        </event-block>
+        <event-block sid="4200482768275744">
+            <conditions>
+                <condition id="5" name="On event received" sid="4535931697880736" type="Socket">
+                    <param id="0" name="Socket Event">&quot;player_information&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="14" name="Log" sid="7865533229848917" type="Browser">
+                    <param id="0" name="Type">0</param>
+                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7503096121504848">
+            <conditions>
+                <condition id="3" name="On disconnect" sid="5732476134143585" type="Socket" />
+            </conditions>
+            <actions />
         </event-block>
     </events>
 </c2eventsheet>

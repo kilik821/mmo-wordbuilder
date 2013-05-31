@@ -26,7 +26,6 @@ Sent in response to a login request.  Contains users account info.
 Emits a message to all members of a chat room.
 
     r : [String] Room to emit message to
-
     m : [String] Message to send
 
 
@@ -36,7 +35,6 @@ Emits a message to all members of a chat room.
 Sends a message to a client in a room.
 
     u : [String] Username of user who sent the message
-    
     m : [String] Message sent
     
 ### join (c-s)
