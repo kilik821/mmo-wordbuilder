@@ -32,11 +32,10 @@ app.set 'view engine', 'jade'
 
 #### View initialization
 # Set the public folder as static assets
-console.log 'Trying static'
 app.use express.static(process.cwd() + '/public')
 
 # Initialize socket functions
-sockets = require './sockets'
-sockets(io)
+controllers = require './controllers'
+controllers(io)
 
 module.exports = server
