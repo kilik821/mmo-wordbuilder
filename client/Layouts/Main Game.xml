@@ -273,19 +273,17 @@
                 <depth>1</depth>
             </properties>
         </instance>
-        <instance type="Tile" uid="646" />
-        <instance type="Objects" uid="647">
+        <instance type="Objects" uid="646" />
+        <instance type="Players" uid="648">
             <properties>
                 <width>10</width>
                 <height>1</height>
                 <depth>1</depth>
             </properties>
         </instance>
-        <instance type="Players" uid="648">
+        <instance type="Hash" uid="7">
             <properties>
-                <width>10</width>
-                <height>1</height>
-                <depth>1</depth>
+                <initial-data></initial-data>
             </properties>
         </instance>
     </nonworld-instances>

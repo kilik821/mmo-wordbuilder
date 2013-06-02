@@ -11,16 +11,17 @@
     <saved-with-version>13200</saved-with-version>
     <used-plugins>
         <plugin author="Scirra" id="Dictionary" version="1">Dictionary</plugin>
+        <plugin author="Scirra" id="Audio" version="1">Audio</plugin>
         <plugin author="Scirra" id="Keyboard" version="1">Keyboard</plugin>
+        <plugin author="Rex.Rainbow" id="Rex_Hash" version="0.5">Hash</plugin>
         <plugin author="Original work: Zack0Wack0 - modifications by juantar &amp; bhavanvaishnav - additional modifications by JohnnySheffield &amp; JSON modifications by aceofpack" id="Socket" version="1">Socket</plugin>
         <plugin author="Scirra" id="Sprite" version="1">Sprite</plugin>
         <plugin author="Scirra" id="Text" version="1">Text</plugin>
         <plugin author="Scirra" id="Touch" version="1">Touch</plugin>
         <plugin author="Zack0Wack0/Scirra" id="WebStorage" version="1">WebStorage</plugin>
-        <plugin author="Scirra" id="gamepad" version="1">Gamepad</plugin>
-        <plugin author="Scirra" id="Browser" version="1">Browser</plugin>
         <plugin author="Scirra" id="Arr" version="1">Array</plugin>
-        <plugin author="Scirra" id="Audio" version="1">Audio</plugin>
+        <plugin author="Scirra" id="Browser" version="1">Browser</plugin>
+        <plugin author="Scirra" id="gamepad" version="1">Gamepad</plugin>
     </used-plugins>
     <used-behaviors>
         <behavior author="Scirra" id="Anchor" version="1">Anchor</behavior>
@@ -232,14 +233,14 @@
         <object-type global="1" name="World" sid="265995154683203">
             <plugin id="Arr" />
         </object-type>
-        <object-type global="1" name="Tile" sid="8605241238844835">
+        <object-type global="1" name="Objects" sid="8605241238844835">
             <plugin id="Dictionary" />
-        </object-type>
-        <object-type global="1" name="Objects" sid="176769833637614">
-            <plugin id="Arr" />
         </object-type>
         <object-type global="1" name="Players" sid="182081176674332">
             <plugin id="Arr" />
+        </object-type>
+        <object-type global="1" name="Hash" sid="1577869841611189">
+            <plugin id="Rex_Hash" />
         </object-type>
     </object-folder>
     <families />

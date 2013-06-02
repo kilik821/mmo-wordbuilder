@@ -8,16 +8,18 @@ class Client extends Module
     @socket.emit 'successful_login', data
 
     # Load player info from database
-    playerInfo = {username: "bob"}
-    @player = new Player(playerInfo)
+    playerInfo =
+      username: "bob"
+      x: Math.floor(Math.random() * (10 - 2)) + 1
+      y: Math.floor(Math.random() * (10 - 2)) + 1
+    @player = new Player(playerInfo, this)
     @player.setupActions @socket
-    @player.addInterest @socket
+    @player.addInterest this
 
     @player.sendInfo @socket
 
-#    player = @player
-#    @socket.on 'player_movement', (message) ->
-#      player.player_movement message
+    @socket.emit 'world_info',
+      t: Date.now()
 
   destroy: ->
 

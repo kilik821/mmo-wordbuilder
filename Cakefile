@@ -21,7 +21,7 @@ log = (message, color, explanation) ->
 # Compiles app.coffee and src directory to the .app directory
 build = (callback) ->
   options = ['-c', '-o', '.app', 'src'] # Removed '-b'
-  cmd = which.sync 'iced'
+  cmd = which.sync 'coffee'
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
   coffee.stderr.pipe process.stderr
@@ -30,8 +30,8 @@ build = (callback) ->
 # mocha test
 test = (callback) ->
   options = [
-    '--globals'
-    'hasCert,res'
+#    '--globals'
+#    'hasCert,res'
     '--reporter'
     'spec'
     '--compilers'
@@ -39,8 +39,8 @@ test = (callback) ->
     '--colors'
     '--require'
     'should'
-    '--require'
-    './server'
+#    '--require'
+#    './server'
   ]
   try
     cmd = which.sync 'mocha' 
@@ -79,7 +79,7 @@ task 'test', 'Run Mocha tests', ->
 task 'dev', 'start dev env', ->
   # watch_coffee
   options = ['-c', '-b', '-w', '-o', '.app', 'src']
-  cmd = which.sync 'iced'
+  cmd = which.sync 'coffee'
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
   coffee.stderr.pipe process.stderr
@@ -100,7 +100,7 @@ task 'dev', 'start dev env', ->
 task 'debug', 'start debug env', ->
   # watch_coffee
   options = ['-c', '-b', '-w', '-o', '.app', 'src']
-  cmd = which.sync 'iced'
+  cmd = which.sync 'coffee'
   coffee = spawn cmd, options
   coffee.stdout.pipe process.stdout
   coffee.stderr.pipe process.stderr

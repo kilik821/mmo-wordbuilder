@@ -19,15 +19,22 @@ class Player extends Module
 
   movementQueue: []
 
-  constructor: (playerInfo) ->
+  constructor: (playerInfo, @client) ->
     @username = playerInfo.username ? ''
     @id = playerInfo.id ? @getId()
-    @position(playerInfo.x ? 1, playerInfo.y ? 1)
+    @position(playerInfo.x ? 0, playerInfo.y ? 0)
     @movementSpeed = playerInfo.movementSpeed ? 2 # In tiles / second
     @lastMove = playerInfo.lastMove ? 0
 
-  sendInfo: (socket) ->
-    socket.emit 'player_information', @playerInfo()
+  name: (nameArg) =>
+    if nameArg
+      @_name = nameArg
+      this
+    else
+      @_name
+
+  sendInfo: () ->
+    @broadcastToInterested 'player_information', @playerInfo()
 
   playerInfo: ->
     obj = {}
@@ -43,24 +50,24 @@ class Player extends Module
     if @movementQueue.length
       moveRequest = @movementQueue[0]
       World.move this, moveRequest, (moved, info) ->
-        next = true
         unless moved
           switch info.reason
             when "too fast"
-              setTimeout self.movePlayer(repeat), info.dt
-              next = false
-              break
+              console.log "Too fast, waiting: #{info.dt} millis"
+              setTimeout (() ->
+                self.movePlayer(repeat)
+              ), info.dt
+              return
             else
+              console.log "Movement failed: #{info.reason}"
         if moved
           self.broadcastToInterested 'player_movement',
             id: self.id
             x: self.x
             y: self.y
             t: Date.now()
-        if next
-          self.movementQueue.shift()
-          self.movePlayer true if repeat
-          return
+        self.movementQueue.shift()
+        self.movePlayer true if repeat
 
   queueMovement: (moveRequest, doMovement = true) =>
     if @movementQueue.length

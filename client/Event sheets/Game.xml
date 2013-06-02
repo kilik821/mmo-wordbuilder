@@ -9,6 +9,7 @@
         <variable comment="Pixels for horizontal tiles" constant="0" name="TileSizeX" sid="8425974747998167" static="0" type="number">48</variable>
         <variable comment="Number of animations per player movement" constant="1" name="ANIMATIONSPERMOVE" sid="2946124014460763" static="0" type="number">1</variable>
         <variable comment="Number of rows" constant="0" name="Rows" sid="7164784908913802" static="0" type="number">0</variable>
+        <variable constant="0" name="TimeDelta" sid="2407323473362867" static="0" type="number">0</variable>
         <variable comment="Number of columns" constant="0" name="Cols" sid="2349879993479772" static="0" type="number">0</variable>
         <event-block sid="1633543823184788">
             <conditions>
@@ -103,12 +104,16 @@
         <event-block sid="7285777734448203">
             <conditions>
                 <condition id="5" name="On event received" sid="6867854295449286" type="Socket">
-                    <param id="0" name="Socket Event">&quot;world info&quot;</param>
+                    <param id="0" name="Socket Event">&quot;world_info&quot;</param>
                 </condition>
             </conditions>
             <actions>
-                <action id="11" name="Load" sid="185951872515027" type="World">
-                    <param id="0" name="JSON">Socket.LastData</param>
+                <action id="5" name="Load hash table from JSON string" sid="439024687895316" type="Hash">
+                    <param id="0" name="JSON string">Socket.LastDataJSONStringify</param>
+                </action>
+                <action id="-9" name="Set value" sid="6282792869756071" type="System">
+                    <param id="0" name="Variable">TimeDelta</param>
+                    <param id="1" name="Value">float(Hash.At(&quot;t&quot;)) - time</param>
                 </action>
             </actions>
         </event-block>
@@ -119,10 +124,6 @@
                 </condition>
             </conditions>
             <actions>
-                <action id="14" name="Log" sid="8448072263366055" type="Browser">
-                    <param id="0" name="Type">0</param>
-                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
-                </action>
                 <action id="4" name="Emit" sid="7218004296639697" type="Socket">
                     <param id="0" name="Event">&quot;login&quot;</param>
                     <param id="1" name="Data">&quot;username:password&quot;</param>
@@ -136,10 +137,6 @@
                 </condition>
             </conditions>
             <actions>
-                <action id="14" name="Log" sid="6099502825156711" type="Browser">
-                    <param id="0" name="Type">0</param>
-                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
-                </action>
                 <action id="1" name="Disconnect" sid="6761779657457876" type="Socket" />
             </actions>
         </event-block>
@@ -150,17 +147,33 @@
                 </condition>
             </conditions>
             <actions>
-                <action id="14" name="Log" sid="7865533229848917" type="Browser">
-                    <param id="0" name="Type">0</param>
-                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot;\n Data: &quot; &amp; Socket.LastDataJSONStringify</param>
+                <action id="5" name="Load hash table from JSON string" sid="9301212340293374" type="Hash">
+                    <param id="0" name="JSON string">Socket.LastDataJSONStringify</param>
+                </action>
+                <action id="-3" name="Set position" sid="1152082064601198" type="Player">
+                    <param id="0" name="X">Hash.At(&quot;x&quot;,1) * TileSizeX</param>
+                    <param id="1" name="Y">Hash.At(&quot;x&quot;,1) * TileSizeY</param>
+                </action>
+                <action id="-10" name="Set value" sid="9110721875409496" type="Player">
+                    <param id="0" name="Instance variable">MovementSpeed</param>
+                    <param id="1" name="Value">Hash.At(&quot;ms&quot;,Player.MovementSpeed)</param>
+                </action>
+                <action id="0" name="Add key" sid="4815914211462144" type="Objects">
+                    <param id="0" name="Key">str(Hash.At(&quot;id&quot;))</param>
+                    <param id="1" name="Value">Player.UID</param>
                 </action>
             </actions>
         </event-block>
-        <event-block sid="7503096121504848">
+        <event-block sid="7537689382945065">
             <conditions>
-                <condition id="3" name="On disconnect" sid="5732476134143585" type="Socket" />
+                <condition disabled="1" id="6" name="On any event" sid="3234478384846052" type="Socket" />
             </conditions>
-            <actions />
+            <actions>
+                <action disabled="1" id="14" name="Log" sid="6976827212200091" type="Browser">
+                    <param id="0" name="Type">0</param>
+                    <param id="1" name="Message">&quot;Event: &quot; &amp; Socket.LastSocketEvent &amp; &quot; Data: &quot; &amp; Socket.LastDataJSONStringify</param>
+                </action>
+            </actions>
         </event-block>
     </events>
 </c2eventsheet>

@@ -4,10 +4,11 @@ class Informer
 
   broadcastToInterested: (message, data) ->
     for client in @interestedClients
-      client.emit message, data
+      client.socket.emit message, data
 
   addInterest: (client) ->
-    @interestedClients.push client
+    unless client in @interestedClients
+      @interestedClients.push client
     this
 
   removeInterest: (client) ->

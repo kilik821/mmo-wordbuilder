@@ -21,11 +21,15 @@
     },
     "scripts": {
         "install": "node node_modules/coffee-script/bin/cake build",
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "mocha --require should --compilers coffee:coffee-script --colors"
     },
     "devDependencies": {
         "coffee-script": "*",
         "ejs": "*",
+        "mocha": "*",
+        "coffee-script-redux":"*",
+        "should": "*",
         "supervisor": "*"
     },
     "engines": {

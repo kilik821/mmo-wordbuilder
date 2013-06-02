@@ -119,6 +119,14 @@
                                 <action id="6" name="Set speed" sid="2830757608742637" type="Player">
                                     <param id="0" name="Speed">Self.AnimationFrameCount * ANIMATIONSPERMOVE * Self.MovementSpeed</param>
                                 </action>
+                                <action id="5" name="EmitJSONString" sid="3301957004021921" type="Socket">
+                                    <param id="0" name="Event">&quot;player_movement&quot;</param>
+                                    <param id="1" name="JSON String">&quot;{&quot;&quot;x&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetX / TileSizeX &amp;&quot;&quot;&quot;,&quot;&quot;y&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetY / TileSizeY &amp;&quot;&quot;&quot;,&quot;&quot;t&quot;&quot;:&quot;&quot;&quot; &amp; 1000 * time + TimeDelta &amp; &quot;&quot;&quot;}&quot;</param>
+                                </action>
+                                <action disabled="1" id="14" name="Log" sid="5096464199124069" type="Browser">
+                                    <param id="0" name="Type">0</param>
+                                    <param id="1" name="Message">&quot;{&quot;&quot;x&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetX / TileSizeX &amp;&quot;&quot;&quot;,&quot;&quot;y&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetY / TileSizeY &amp;&quot;&quot;&quot;,&quot;&quot;t&quot;&quot;:&quot;&quot;&quot; &amp; time + TimeDelta &amp; &quot;&quot;&quot;}&quot;</param>
+                                </action>
                                 <action id="-16" name="Wait" sid="4358252387467692" type="System">
                                     <param id="0" name="Seconds">1.0 / Player.MovementSpeed</param>
                                 </action>
@@ -132,10 +140,6 @@
                                 <action id="4" name="Set animation" sid="6513379542323067" type="Player">
                                     <param id="0" name="Animation">&quot;Idle&quot; &amp; str(Self.Direction)</param>
                                     <param id="1" name="From">1</param>
-                                </action>
-                                <action id="5" name="EmitJSONString" sid="3301957004021921" type="Socket">
-                                    <param id="0" name="Event">&quot;player_movement&quot;</param>
-                                    <param id="1" name="JSON String">&quot;{&quot;&quot;x&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetX / TileSizeX &amp;&quot;&quot;&quot;,&quot;&quot;y&quot;&quot;:&quot;&quot;&quot; &amp; Player.TargetY / TileSizey &amp;&quot;&quot;&quot;,&quot;&quot;t&quot;&quot;:&quot;&quot;&quot; &amp; time &amp; &quot;&quot;&quot;}&quot;</param>
                                 </action>
                             </actions>
                         </event-block>
@@ -171,7 +175,100 @@
                     <param id="0" name="Socket Event">&quot;player_movement&quot;</param>
                 </condition>
             </conditions>
-            <actions />
+            <actions>
+                <action id="5" name="Load hash table from JSON string" sid="6065006169999937" type="Hash">
+                    <param id="0" name="JSON string">Socket.LastDataJSONStringify</param>
+                </action>
+                <action disabled="1" id="14" name="Log" sid="1055143262856086" type="Browser">
+                    <param id="0" name="Type">0</param>
+                    <param id="1" name="Message">Socket.LastDataJSONStringify</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="1165616444775373">
+                    <conditions>
+                        <condition id="-14" name="Pick by unique ID" sid="7613487523608971" type="Player">
+                            <param id="0" name="Unique ID">Objects.Get(str(Hash.At(&quot;id&quot;)))</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="183885990591476">
+                            <conditions>
+                                <condition id="-1" name="Compare X" sid="8429892175220476" type="Player">
+                                    <param id="0" name="Comparison">1</param>
+                                    <param id="1" name="X co-ordinate">int(Hash.At(&quot;x&quot;)) * TileSizeX</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="8398605330956775" type="Player">
+                                    <param id="0" name="Instance variable">TargetX</param>
+                                    <param id="1" name="Value">int(Hash.At(&quot;x&quot;)) * TileSizeX</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="954333903877453">
+                            <conditions>
+                                <condition id="-2" name="Compare Y" sid="5094605808566647" type="Player">
+                                    <param id="0" name="Comparison">1</param>
+                                    <param id="1" name="Y co-ordinate">int(Hash.At(&quot;y&quot;))</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="92009630913731" type="Player">
+                                    <param id="0" name="Instance variable">TargetY</param>
+                                    <param id="1" name="Value">int(Hash.At(&quot;y&quot;)) * TileSizeY</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block any="1" sid="2015148899518828">
+                            <conditions>
+                                <condition id="-1" name="Compare X" sid="8097298671394042" type="Player">
+                                    <param id="0" name="Comparison">1</param>
+                                    <param id="1" name="X co-ordinate">Player.TargetX</param>
+                                </condition>
+                                <condition id="-2" name="Compare Y" sid="9656248532604692" type="Player">
+                                    <param id="0" name="Comparison">1</param>
+                                    <param id="1" name="Y co-ordinate">Player.TargetY</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="7790212066524729" type="Player">
+                                    <param id="0" name="Instance variable">Direction</param>
+                                    <param id="1" name="Value">round(angle(Self.X, Self.Y, Self.TargetX, Self.TargetY))</param>
+                                </action>
+                                <action behavior="Bullet" id="0" name="Set speed" sid="4929312587159408" type="Player">
+                                    <param id="0" name="Speed">distance(Self.X, Self.Y, Self.TargetX, Self.TargetY) * (Self.MovementSpeed)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="2962701277140802" type="Player">
+                                    <param id="0" name="Angle">Self.Direction</param>
+                                </action>
+                                <action id="4" name="Set animation" sid="9779219862611093" type="Player">
+                                    <param id="0" name="Animation">&quot;Walk&quot; &amp; str(round((((Player.Direction%360)+360)%360%360) / 90) * 90)</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="6" name="Set speed" sid="5360250846748054" type="Player">
+                                    <param id="0" name="Speed">Self.AnimationFrameCount * ANIMATIONSPERMOVE * Self.MovementSpeed</param>
+                                </action>
+                                <action id="-16" name="Wait" sid="6786622012854072" type="System">
+                                    <param id="0" name="Seconds">1.0 / Player.MovementSpeed</param>
+                                </action>
+                                <action behavior="Bullet" id="0" name="Set speed" sid="9114519931442199" type="Player">
+                                    <param id="0" name="Speed">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="382520313130807" type="Player">
+                                    <param id="0" name="X">Self.TargetX</param>
+                                    <param id="1" name="Y">Self.TargetY</param>
+                                </action>
+                                <action id="4" name="Set animation" sid="9618139793419432" type="Player">
+                                    <param id="0" name="Animation">&quot;Idle&quot; &amp; str(round((((Player.Direction%360)+360)%360%360) / 90) * 90)</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
         </event-block>
     </events>
 </c2eventsheet>
