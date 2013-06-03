@@ -7,7 +7,7 @@ class Informer
 
   broadcast: () ->
     for informee in @informees
-      informee.recieve.apply this, arguments
+      informee.recieve.apply informee, arguments
 
   # Adds an informee to our list and tells it to add us if it doesn't already
   inform: (informee) ->
@@ -17,6 +17,7 @@ class Informer
         @inform i
     else
       unless informee in @informees
+        @informees = @informees.slice 0
         @informees.push informee
       unless informee.informedBy(this)
         informee.informFrom this

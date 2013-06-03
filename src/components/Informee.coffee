@@ -3,10 +3,10 @@ class Informee
   informers: []
 
   constructor: (options = {})->
-    @informers = options.informers ? @informers.slice(0)
+    @informers = options.informers ? []
 
   # Meant to be overridden by specific informers (sockets, objects, etc.)
-  send: () ->
+  recieve: () ->
 
   informFrom: (informer) ->
     if toString.apply(informer) is '[object Array]'
@@ -14,6 +14,7 @@ class Informee
         @informFrom i
     else
       unless informer in @informers
+        @informers = @informers.slice 0
         @informers.push informer
       unless informer.informs(this)
         informer.inform this

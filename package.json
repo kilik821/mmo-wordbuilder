@@ -30,6 +30,7 @@
         "mocha": "*",
         "coffee-script-redux":"*",
         "should": "*",
+        "underscore": "*",
         "supervisor": "*"
     },
     "engines": {

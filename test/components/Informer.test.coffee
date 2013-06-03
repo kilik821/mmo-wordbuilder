@@ -1,5 +1,6 @@
 Informer = require "#{process.cwd()}/.app/components/Informer"
 Informee = require "#{process.cwd()}/.app/components/Informee"
+MockInformee = require "../mocks/MockInformee"
 
 describe 'Informer', ->
 
@@ -9,10 +10,10 @@ describe 'Informer', ->
   beforeEach ->
     informer = new Informer()
     informees = []
-    informees.push(new Informee())
-    informees.push(new Informee())
-    informees.push(new Informee())
-    informees.push(new Informee())
+    informees.push(new MockInformee())
+    informees.push(new MockInformee())
+    informees.push(new MockInformee())
+    informees.push(new MockInformee())
 
   describe 'should inform interested parties', ->
     it 'given an party', ->
@@ -84,3 +85,22 @@ describe 'Informer', ->
           informer.informs(informee).should.be.false
           informee.informedBy(informer).should.be.false
 
+  describe 'when broadcasting information', ->
+    informing = []
+    notInforming = []
+    args = ['here','are','my','args']
+
+    beforeEach ->
+      informing = informees[0...informees.length/2]
+      notInforming = informees[informees.length/2..]
+      informer.inform informing
+
+    it 'should have informees recieve information', ->
+      informer.broadcast.apply informer, args
+      for informee in informing
+        informee.hasData.apply(informee, args).should.be.true
+
+    it 'should have non-informees receieve no information', ->
+      informer.broadcast.apply informer, args
+      for informee in notInforming
+        informee.hasData.apply(informee, args).should.be.false
