@@ -19,10 +19,22 @@ class Informer
       unless informee in @informees
         @informees.push informee
       unless informee.informedBy(this)
-        informee.inform this
+        informee.informFrom this
     this
 
   informs: (informee) ->
     informee in @informees
+
+  uninform: (informee) ->
+    if toString.apply(informee) is '[object Array]'
+      for i in informee
+        @uninform i
+    else
+      while (index = @informees.indexOf(informee)) > -1
+        @informees.splice(index, 1)
+      if informee.informedBy this
+        informee.uninformFrom this
+    this
+
 
 module.exports = Informer

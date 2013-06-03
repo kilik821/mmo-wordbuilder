@@ -8,7 +8,7 @@ class Informee
   # Meant to be overridden by specific informers (sockets, objects, etc.)
   send: () ->
 
-  inform: (informer) ->
+  informFrom: (informer) ->
     unless informer in @informers
       @informers.push informer
     unless informer.informs(this)
@@ -16,10 +16,14 @@ class Informee
     this
 
   informedBy: (informer) ->
-#    console.log "I am "
-#    console.log this
-#    console.log "Informer is #{informer.informers}"
     informer in @informers
+
+  uninformFrom: (informer) ->
+    while (index = @informers.indexOf(informer)) > -1
+      @informers.splice index, 1
+    if informer.informs(this)
+      informer.uninform this
+    this
 
 
 module.exports = Informee
