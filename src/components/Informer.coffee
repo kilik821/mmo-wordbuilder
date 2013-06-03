@@ -1,20 +1,28 @@
 class Informer
 
-  interestedClients: []
+  informees: []
 
-  broadcastToInterested: (message, data) ->
-    for client in @interestedClients
-      client.socket.emit message, data
+  constructor: (options = {})->
+    @informees = options.informees ? @informees.slice(0)
 
-  addInterest: (client) ->
-    unless client in @interestedClients
-      @interestedClients.push client
+  broadcast: () ->
+    for informee in @informees
+      informee.recieve.apply this, arguments
+
+  # Adds an informee to our list and tells it to add us if it doesn't already
+  inform: (informee) ->
+    # If informee is an array call this method for each in array
+    if toString.apply(informee) is '[object Array]'
+      for i in informee
+        @inform i
+    else
+      unless informee in @informees
+        @informees.push informee
+      unless informee.informedBy(this)
+        informee.inform this
     this
 
-  removeInterest: (client) ->
-    _ref = @interestedClients
-    until (index = _ref.indexOf client) < 0
-      _ref.splice index, 1
-    this
+  informs: (informee) ->
+    informee in @informees
 
 module.exports = Informer

@@ -61,7 +61,7 @@ class Player extends Module
             else
               console.log "Movement failed: #{info.reason}"
         if moved
-          self.broadcastToInterested 'player_movement',
+          self.broadcast 'player_movement',
             id: self.id
             x: self.x
             y: self.y
