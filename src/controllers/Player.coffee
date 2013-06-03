@@ -21,7 +21,7 @@ class Player extends Module
 
   constructor: (playerInfo, @client) ->
     @username = playerInfo.username ? ''
-    @id = playerInfo.id ? @getId()
+    @id = playerInfo.id ? @retrieveId()
     @position(playerInfo.x ? 0, playerInfo.y ? 0)
     @movementSpeed = playerInfo.movementSpeed ? 2 # In tiles / second
     @lastMove = playerInfo.lastMove ? 0
