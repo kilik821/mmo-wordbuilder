@@ -5,7 +5,6 @@ describe 'Informer', ->
 
   informer = null
   informees = []
-  testData = {}
 
   beforeEach ->
     informer = new Informer()
