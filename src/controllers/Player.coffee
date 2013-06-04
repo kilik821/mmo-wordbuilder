@@ -11,6 +11,16 @@ class Player extends Module
   @include new Informer
   @include new GameObject
 
+  name: (name) ->
+    if name?
+      if typeof name is 'string'
+        @_name = name
+      else if name.name?
+        @_name = name.name
+      this
+    else
+      @_name
+
   setupActions: (socket) ->
     actions =
       player_movement: @player_movement
@@ -19,26 +29,19 @@ class Player extends Module
 
   movementQueue: []
 
-  constructor: (playerInfo, @client) ->
-    @username = playerInfo.username ? ''
-    @id = playerInfo.id ? @retrieveId()
-    @position(playerInfo.x ? 0, playerInfo.y ? 0)
-    @movementSpeed = playerInfo.movementSpeed ? 2 # In tiles / second
-    @lastMove = playerInfo.lastMove ? 0
-
-  name: (nameArg) =>
-    if nameArg
-      @_name = nameArg
-      this
-    else
-      @_name
+  constructor: (options = {}) ->
+    @name options.name ? ''
+    @username = options.username ? ''
+    @position(options.x ? 0, options.y ? 0)
+    @movementSpeed = options.movementSpeed ? 2 # In tiles / second
+    @lastMove = options.lastMove ? 0
 
   sendInfo: () ->
     @broadcastToInterested 'player_information', @playerInfo()
 
   playerInfo: ->
     obj = {}
-    obj.id = @id if @id?
+    obj.id = @_id if @_id?
     obj.username = @username if @username?
     obj.x = @x if @x?
     obj.y = @y if @y?

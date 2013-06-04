@@ -1,16 +1,46 @@
 Module = require "../components/Module"
+Tile = require "./Tile"
 
 class World extends Module
 
+  _width: 1
+  _height: 1
+  _tiles: [[]]
 
-  constructor: (redis) ->
-    # Generate a new world if one doesn't exist
-    # Else load it from the redis store
-    @tiles = new Array(20)
-    for tile, i in @tiles
-      @tiles[i] = new Array(20)
-      for subTile, j in @tiles[i]
-        @tiles[i][j] = {traversable: true}
+  constructor: (options = {}) ->
+    @size options.width ? @_width, options.height ? @_height
+    @tiles options.tiles ? {width: @_width, height: @_height}
+
+  size: (width, height) ->
+    if width?
+      if height?
+        @_width = width
+        @_height = height
+      else
+        @_width = width.width ? @_width
+        @_height = width.height ? @_height
+      this
+    else {width: @_width, height: @_height}
+
+  tiles: (tiles) ->
+    if tiles?
+      if toString.apply(tiles) is '[object Array]'
+        @_tiles = tiles
+      else
+        t = new Array
+        for i in [0...tiles.width]
+          col = new Array
+          for j in [0...tiles.height]
+            col.push new Tile {x: i, y: j}
+          t.push col
+        @_tiles = t
+      this
+    else
+      @_tiles
+
+  tile: (x, y) ->
+    @_tiles[x][y]
+
 
   registerPlayer: (player) ->
     @players.push player
@@ -45,4 +75,4 @@ class World extends Module
     player.lastMove = Math.min Date.now(), (moveRequest.time + 1000.0 / player.movementSpeed)
     cb true
 
-module.exports = new World
+module.exports = World

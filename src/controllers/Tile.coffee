@@ -10,10 +10,9 @@ class Tile extends Module
   _type: null
 
   constructor: (options = {}) ->
-    @_traversable = options.traversable ? Tile.traversable ? true
-    @_x = options.x ? options.position?.x ? 0
-    @_y = options.y ? options.position?.y ? 0
-    @_type = options.type ? ''
+    @traversable options.traversable ? Tile.traversable ? true
+    @position options.x ? options.position?.x ? 0, options.y ? options.position?.y ? 0
+    @type options.type ? ''
 
   traversable: (traversable) ->
     if traversable?

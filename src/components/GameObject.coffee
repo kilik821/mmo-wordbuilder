@@ -4,11 +4,15 @@ class GameObject
 
   @_id: null
 
-  retrieveId: (provider = IdProvider, override = false) ->
+  included: (provider) ->
+    @::id provider
+
+  retrieveId: (provider = IdProvider, override = true) ->
     if override
       @_id = provider.nextId()
     else
       @_id ?= provider.nextId()
+    this
 
   id: (provider) ->
     if provider?
@@ -21,18 +25,32 @@ class GameObject
     else
       @_id
 
+  x: (x) ->
+    if x?
+      @_x = x
+      this
+    else
+      @_x
+
+  y: (y) ->
+    if y?
+      @_y = y
+      this
+    else
+      @_y
+
 
   position: (x, y) ->
     if x?
       if y?
-        @x = x
-        @y = y
+        @_x = x
+        @_y = y
         this
       else if x.x? and x.y?
-        @x = x.x
-        @y = x.y
+        @_x = x.x
+        @_y = x.y
         this
     else
-      {x: @x, y: @y}
+      {x: @_x, y: @_y}
 
 module.exports = GameObject

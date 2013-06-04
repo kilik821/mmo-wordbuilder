@@ -81,5 +81,5 @@ describe "Tile", ->
   it 'should implement Informer', ->
     i = new Informer
     for prop of i
-      if i.hasOwnProperty prop
+      if i.hasOwnProperty(prop) and prop not in ['included', 'extended']
         tile.should.have.property prop

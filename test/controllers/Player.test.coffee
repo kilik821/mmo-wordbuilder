@@ -1,8 +1,10 @@
 Player = require "#{process.cwd()}/.app/controllers/Player"
+GameObject = require "#{process.cwd()}/.app/components/GameObject"
+Informer = require "#{process.cwd()}/.app/components/Informer"
 
 describe 'Player', ->
 
-  p = null
+  player = null
   playerData = {}
 
   testData =
@@ -12,15 +14,29 @@ describe 'Player', ->
       y: 10
 
   beforeEach ->
-    p = new Player(playerData)
+    player = new Player(playerData)
 
-  it 'should set the name', ->
-    p.name(testData.name)
-    p.name().should.equal testData.name
+  describe 'name', ->
+    it 'should be empty by default', ->
+      player = new Player()
+      player.name().should.equal ''
 
-  it 'should set the position', ->
-    p.position(testData.position)
-    p.position().x.should.equal testData.position.x
-    p.position().y.should.equal testData.position.y
+    describe 'call to name', ->
+      it 'with one argument should set the name', ->
+        player.name(testData.name)
+        player.name().should.equal testData.name
 
-#  it 'should ', ->
+      it 'with no arguments should return a string', ->
+        player.name().should.be.a 'string'
+
+  it 'should implement GameObject', ->
+    o = new GameObject()
+    for prop of o
+      if o.hasOwnProperty prop and prop not in ['included','extended']
+        player.should.have.property prop
+
+  it 'should implement Informer', ->
+    i = new Informer
+    for prop of i
+      if i.hasOwnProperty(prop) and prop not in ['included', 'extended']
+        player.should.have.property prop
