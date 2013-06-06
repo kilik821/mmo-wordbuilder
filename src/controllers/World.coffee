@@ -22,6 +22,11 @@ class World extends Module
       this
     else {width: @_width, height: @_height}
 
+  assignTilePositions: ->
+    for column, x in @_tiles
+      for tile, y in column
+        tile.position x, y
+
   tiles: (tiles) ->
     if tiles?
       if toString.apply(tiles) is '[object Array]'
@@ -34,6 +39,7 @@ class World extends Module
             col.push new Tile {x: i, y: j}
           t.push col
         @_tiles = t
+      @assignTilePositions()
       this
     else
       @_tiles

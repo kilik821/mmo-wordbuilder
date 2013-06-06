@@ -1,6 +1,12 @@
 World = require "#{process.cwd()}/.app/controllers/World"
 Tile = require "#{process.cwd()}/.app/controllers/Tile"
 
+guaranteePositions = (world) ->
+  for column, x in world.tiles()
+    for tile, y in column
+      tile.position().x.should.equal x
+      tile.position().y.should.equal y
+
 describe 'World', ->
   world = null
   testData =
@@ -68,28 +74,33 @@ describe 'World', ->
         tiles[0].should.be.an.instanceof Array
 
     describe 'when initializing', ->
-      it 'should be set by two dimensional tiles option in constructor', ->
-        tiles = [[{},{}],[{},{}]]
-        world = new World {tiles: tiles}
-        world.tiles().should.eql tiles
+      describe 'with two dimensional array tiles option in constructor', ->
+        tiles = [[new Tile, new Tile],[new Tile, new Tile]]
+        beforeEach ->
+          world = new World {tiles: tiles}
 
-      it 'should be set by one dimensional array of tiles with positions'
+        it 'should be the tiles', ->
+          world.tiles().should.eql tiles
 
-      it 'should generate default tiles given width and height option', ->
-        tiles = world.tiles()
-        tiles.length.should.equal testData.width
-        for column, i in tiles
-          column.length.should.equal testData.height
-          for tile, i in column
-            tile.should.be.an.instanceof Tile
+        it 'should set positions of tiles', ->
+          guaranteePositions world
 
-      it.only 'should assign positions to tiles', ->
-        for column, x in world.tiles()
-          for tile, y in column
-            tile.position().x.should.equal x
-            tile.position().y.should.equal y
+#      it 'should be set by one dimensional array of tiles with positions'
+
+      describe 'with width and height in options', ->
+        it 'should generate default tiles', ->
+          tiles = world.tiles()
+          tiles.length.should.equal testData.width
+          for column, i in tiles
+            column.length.should.equal testData.height
+            for tile, i in column
+              tile.should.be.an.instanceof Tile
+
+        it 'should assign positions to tiles', ->
+          guaranteePositions world
 
     describe 'call to tile', ->
 #      it 'with two number parameters should return that tile', ->
 #        world.tile(testData.width/2 , testData.height/2).should.be.an.instanceof Tile
 #        world.tile(testData.width, testData.height).should.not.exist
+
